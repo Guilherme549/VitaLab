@@ -12,7 +12,13 @@
 {% block 'conteudo' %}
 <br>
 <br>
+
 <div class="container">
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert {{message.tags}}">{{message}}</div>
+        {% endfor %}
+    {% endif %}
     <h3 class="font-destaque">Cadastre-se</h3>
 
     <div class="row">
@@ -22,7 +28,8 @@
         </div>
 
         <div class="col-md-9">
-            <form action="" method="POST">
+            <form action="" method="POST"> {% csrf_token %}
+
             <label>Primeiro nome</label>
             <br>
             <input type="text" class="input-default" name="primeiro_nome">
@@ -43,7 +50,7 @@
             <br>
             <label>Senha</label>
             <br>
-            <input type="text" class="input-default w100" name="senha">
+            <input type="password" class="input-default w100" name="senha">
         </div>
 
         <div class="col-md-4">
@@ -54,7 +61,7 @@
             <br>
             <label>Confirmar senha</label>
             <br>
-            <input type="text" class="input-default w100" name="confirmar_senha">
+            <input type="password" class="input-default w100" name="confirmar_senha">
         </div>
         
     </div>
