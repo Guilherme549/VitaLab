@@ -33,7 +33,7 @@
                             {% if exame.status == 'F' %}
                                 <a href="{% url "permitir_abrir_exame" exame.id %}" class="btn btn-light">Abrir</a>
                             {% else %}
-                                <a href="#" class="btn btn-light disabled">Abrir</a>
+                               <a href="{% url "permitir_abrir_exame" exame.id %}" class="btn btn-light">Abrir</a>
                             {% endif %}
                         </div>
                     </div>
