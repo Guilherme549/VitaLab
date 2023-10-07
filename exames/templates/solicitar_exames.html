@@ -33,11 +33,15 @@
             </div>
 
             <div class="col-md card">
-    
+                {% if solicitacao_exames %}
                         {% for exame  in solicitacao_exames %}
                             <div style="font-size: 20px; font-weight: bold">
-                            
-                                <img src="{% static 'exames/img/check.png' %}">
+                                {% if exame.disponivel %}
+                                    <img src="{% static 'exames/img/check.png' %}">
+                                    {% else %}
+                                    <img src="{% static 'exames/img/exit.png' %}">
+                                {% endif %}
+                                
                                 
                                 {{exame.nome}}
                                 <span class="previa-preco">
@@ -57,11 +61,19 @@
                     <h5>Data: 08 de Setembro</h5>
                     <br>
 
-                    <form action="" method="POST">
+                    <form action="{% url "fechar_pedido" %}" method="POST">
+                        {% csrf_token %}
+                        {% for exame in solicitacao_exames %}
+                            {% if exame.disponivel %}
+                                <input style="color: black;" type="hidden" value="{{exame.id}}" name="exames">
+                            {% endif %}
+                            
+                        {% endfor %}
                         <button class="btn-secundario">Fechar pedido</button>
                     </form>
-                    
-              
+                    {% else %}
+                    <h3>Nenhum exame selecionado</h3>
+                    {% endif %}
 
             </div>
         </div>
