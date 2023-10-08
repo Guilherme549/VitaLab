@@ -41,7 +41,7 @@ def cadastro(request):
             messages.add_message(request, constants.ERROR, "Username ja existe")
             return redirect("/usuarios/cadastro")
 
-        return redirect("/usuarios/cadastro")
+        return redirect("/usuarios/login")
 
 
 def logar(request):
@@ -54,7 +54,9 @@ def logar(request):
         user = authenticate(username=username, password=senha)
         if user:
             login(request, user)
-            return redirect("/")
+            return redirect("/exames/solicitar_exames")
         else:
-            messages.add_message(request, constants.ERROR, "Username ou senha invalidos")
+            messages.add_message(
+                request, constants.ERROR, "Username ou senha invalidos"
+            )
             return redirect("/usuarios/login")

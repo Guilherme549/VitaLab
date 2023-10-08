@@ -11,6 +11,7 @@ from django.contrib.messages import constants
 def solicitar_exames(request):
     if request.method == "GET":
         tipos_exames = TiposExames.objects.all()
+        data = datetime.now()
         return render(request, "solicitar_exames.html", {"tipos_exames": tipos_exames})
     elif request.method == "POST":
         exames_id = request.POST.getlist("exames")
@@ -24,6 +25,7 @@ def solicitar_exames(request):
             if i.disponivel:
                 preco_total += i.preco
 
+        data = datetime.now()
         return render(
             request,
             "solicitar_exames.html",
@@ -31,6 +33,7 @@ def solicitar_exames(request):
                 "tipos_exames": tipos_exames,
                 "solicitacao_exames": solicitacao_exames,
                 "preco_total": preco_total,
+                "data": data
             },
         )
 

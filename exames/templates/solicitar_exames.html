@@ -16,7 +16,7 @@
                 <form action="{% url "solicitar_exames" %}" method="POST">{% csrf_token %}
                     
                     <label for="">Selecione os exames para realizar</label>
-                    <select class="select form-control bg-select" multiple name="exames">
+                    <select style="background-color: black;" class="select form-control bg-select" multiple name="exames">
                             {% for exame in tipos_exames  %}
                                 <option class="opt" value="{{exame.id}}">{{exame}}</option>
                             {% endfor %}
@@ -58,7 +58,7 @@
                     </div>
                     <br>
 
-                    <h5>Data: 08 de Setembro</h5>
+                    <h5>Data: {{data}}</h5>
                     <br>
 
                     <form action="{% url "fechar_pedido" %}" method="POST">
