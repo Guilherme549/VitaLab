@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from .models import TiposExames, PedidosExames, SolicitacaoExame
@@ -17,7 +17,7 @@ def solicitar_exames(request):
         tipos_exames = TiposExames.objects.all()
         solicitacao_exames = TiposExames.objects.filter(
             id__in=exames_id
-        )  # id__in 34:20 (se os id estiverem dentro desta lista traga para variavel)
+        )  # id__in 34:20 (se os id estiverem dentro desta lista traga para variavel
 
         preco_total = 0
         for i in solicitacao_exames:
@@ -85,20 +85,27 @@ def cancelar_pedido(request, pedido_id):
 @login_required
 def gerenciar_exames(request):
     exames = SolicitacaoExame.objects.filter(usuario=request.user)
-
     return render(request, "gerenciar_exames.html", {"exames": exames})
 
 
 @login_required
 def permitir_abrir_exame(request, exame_id):
-    exame = SolicitacaoExame.objects.get(id=exame_id)
-    # TODO: validar se o exame é do usuário
-    if not exame.requer_senha:
-        # verificar se o pdf existe
-        return redirect(exame.resultado.url)
+    exame = get_object_or_404(SolicitacaoExame, id=exame_id)
 
-    else:
-        return redirect(f"/exames/solicitar_senha_exame/{exame.id}")
+    if exame.usuario == request.user:
+        if not exame.requer_senha:
+            # verificar se o pdf existe
+            if exame.resultado:
+                return redirect(exame.resultado.url)
+            else:
+                messages.add_message(
+                    request,
+                    constants.ERROR,
+                    "Resultado ainda não processado, favor aguardar",
+                )
+                return redirect("/exames/gerenciar_exames")
+        else:
+            return redirect(f"/exames/solicitar_senha_exame/{exame.id}")
 
 
 @login_required
@@ -108,7 +115,7 @@ def solicitar_senha_exame(request, exame_id):
         return render(request, "solicitar_senha_exame.html", {"exame": exame})
     elif request.method == "POST":
         senha = request.POST.get("senha")
-        # TODO: validar se o exame é do usuário
+        # todo: validar se o exame é do usuário
         if senha == exame.senha:
             return redirect(exame.resultado.url)
         else:
