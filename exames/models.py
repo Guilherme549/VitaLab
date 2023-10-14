@@ -2,8 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils.safestring import mark_safe  # converte uma string python para um html
 from secrets import token_urlsafe
-
-# Create your models here.
+from django.utils import timezone
+from datetime import timedelta
 
 
 class TiposExames(models.Model):
@@ -69,3 +69,17 @@ class AcessoMedico(models.Model):
             self.token = token_urlsafe(6)
 
         super(AcessoMedico, self).save(*args, **kwargs)
+
+
+
+    @property
+    def status(self):
+        return (
+            "Expirado"
+            if timezone.now() > (self.criado_em + timedelta(days=self.tempo_de_acesso))
+            else "Ativo"
+        )
+
+    @property
+    def url(self):
+        return f'http://127.0.0.1:8000/exames/acesso_medico/{self.token}'

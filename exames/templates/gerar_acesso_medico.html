@@ -60,14 +60,16 @@
                           
                         </tr>
         
-                       
+                        {% for acesso in acesso_medicos  %}
+
                             <tr class="linha-tabela">
-                                <td>01</td>
-                                <td>Status 1</td>
-                                <td>URL AQUI</td>
+                                <td>{{acesso.identificacao}}</td>
+                                <td>{{acesso.status}}</td>
+                                <td><a href="{{acesso.url}}">Acesse aqui</a></td>
                             </tr>
+
+                        {% endfor %}
                       
-                    
                        
                     </table>
                 </div>
