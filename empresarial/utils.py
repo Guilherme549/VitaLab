@@ -35,7 +35,7 @@ def gerar_senha_aleatoria(tamanho):
     senha = list(letras + numeros + especias)
     shuffle(senha)
 
-    return "".join(senha)  # retorna a lista em forma de string
+    return " ".join(senha)  # retorna a lista em forma de string
 
 
 def gerar_pdf_exames(exame, paciente, senha):

@@ -5,9 +5,23 @@
     <link href="{% static 'exames/css/css.css' %}" rel="stylesheet">
 {% endblock 'head' %}
 
+
+
+
 {% block 'conteudo' %} 
+
+<nav class="nav" style="background-color: #151C34">
+    <img src="{% static "geral/img/cup.png" %}" alt="">
+    <h2 class="nav-link" style="color: white">VitaLab</h2>
+    <a style="color: white" class="nav-link" href="{% url "solicitar_exames" %}">Solicitar Exames</a>
+    <a style="color: white" class="nav-link" href="{% url "gerenciar_pedidos" %}">Próximos Exames</a>
+    <a style="color: white" class="nav-link" href="{% url "gerenciar_exames" %}">Resultados</a>
+</nav>
+  </nav>
     <br>
     <br>
+  
+    
     <div class="container">
         <div class="row">
 
