@@ -3,8 +3,8 @@ from random import choice, shuffle
 import os
 from django.conf import settings
 from django.template.loader import render_to_string
-from weasyprint import HTML
 from io import BytesIO
+from weasyprint import HTML
 
 
 def gerar_senha_aleatoria(tamanho):

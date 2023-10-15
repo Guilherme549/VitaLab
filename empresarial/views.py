@@ -61,10 +61,7 @@ def gerar_senha(request, exame_id):
             filename="token.pdf",
         )
 
-    senha = gerar_senha_aleatoria(9)
-    exame.senha = senha
-    exame.save()
-    return FileResponse(
-        gerar_pdf_exames(exame.exame.nome, exame.usuario, exame.senha),
-        filename="token.pdf",
-    )
+    # senha = gerar_senha_aleatoria(9)
+    # exame.senha = senha
+    # exame.save()
+    return HttpResponse("test")
