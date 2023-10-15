@@ -13,6 +13,8 @@ INSTALE O GTK3, ACESSANDO O SITE:
 -Rode o comando:
 pip install weasyprint
 
+
+Comandos para usar no CMD:
  1. Ative o ambiente virtual venv:
     - .\venv\Scripts\activate
 
